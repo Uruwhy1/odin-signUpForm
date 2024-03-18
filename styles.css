@@ -59,7 +59,22 @@ body {
     background-image: url(./images/silas-van-overeem-7ga11BHwXHY-unsplash.jpg);
     background-size: cover;
 
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
+
+.left-area p {
+    background-color: #0000006b;
+    width: 100%;
+    text-align: center;
+}
+
+.left-area a {
+    text-decoration: none;
+    color: rgb(0, 225, 255);
+}
+
 
 .right-area {
     width: 65vw; /* Use viewport width instead of rem */
@@ -93,8 +108,24 @@ form .line {
     align-items: center;
 }
 
+
+/* COLOR VARIABLE */
+:root {
+    --form-color: #3e1978;
+    --focus-color: #fdcda7;
+    --correct-color: rgb(0, 255, 0);
+    --wrong-color: rgb(255, 2, 2);
+}
+/* ----------------*/
+
+
 .line div {
     display: flex;
+    align-items: center;
+}
+
+svg {
+    stroke: var(--form-color);
 }
 
 .line input {
@@ -105,10 +136,33 @@ form .line {
 
     margin-left: 15px;
     border: 0;
-    border-bottom: 3px solid #3e1978;
+    border-bottom: 3px solid var(--form-color);
+    transition: 0.5s;
+
 }
 
 ::placeholder {
-    color: #3e1978;
+    color: var(--form-color);
     opacity: 0.8; 
+  }
+
+input.focused::placeholder {
+    color: var(--focus-color);
+    opacity: 0.8;
+}
+
+input:focus {
+    outline: none;
+}
+
+input:invalid {
+    border-color: var(--wrong-color);
+}
+
+input:valid {
+    border-color: var(--correct-color);
+}
+
+input:placeholder-shown {
+    border-bottom-color: var(--form-color);
   }
