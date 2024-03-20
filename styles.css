@@ -101,38 +101,66 @@ form {
 }
 
 form .line {
-    width: 80%;
+    width: 90%;
 
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+
+
 }
 
 
-/* COLOR VARIABLE */
+/* COLOR VARIABLES */
 :root {
-    --form-color: #3e1978;
+    --form-color: #5222a0;
     --focus-color: #fdcda7;
     --correct-color: rgb(0, 255, 0);
     --wrong-color: rgb(255, 2, 2);
 }
 /* ----------------*/
 
-
-.line div {
+.input-holder {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+
+    width: 40%;
 }
+
+
+/* LINE IS SPACE-AROUND THAT IS WHY THERE IS A SPACE!!!!! */
+.input-holder div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 90%;
+ }
 
 svg {
     stroke: var(--form-color);
+    
+}
+
+span {
+    height: 20px;
+    margin-left: calc(39px + 5%);
+    margin-right: 5%;
+    margin-top: 5px;
+    
+    align-self: flex-start;
 }
 
 .line input {
     color: white;
-    font-size: 1.8em;
+    font-size: 1.7em;
     background-color: #00000000;
+    outline: none;
+
     
+    width: 90%;
 
     margin-left: 15px;
     border: 0;
@@ -143,26 +171,30 @@ svg {
 
 ::placeholder {
     color: var(--form-color);
-    opacity: 0.8; 
+    opacity: 1; 
   }
 
+
+input.valid {
+    border-color: var(--correct-color);
+}
+input.valid::placeholder {
+    color: var(--correct-color);
+}
+
+input.invalid {
+    border-color: var(--wrong-color);
+}
+input.invalid::placeholder {
+    color: var(--wrong-color);
+}
+
+
+input.focused {
+    outline: none;
+    border-color: var(--focus-color);
+}
 input.focused::placeholder {
     color: var(--focus-color);
     opacity: 0.8;
 }
-
-input:focus {
-    outline: none;
-}
-
-input:invalid {
-    border-color: var(--wrong-color);
-}
-
-input:valid {
-    border-color: var(--correct-color);
-}
-
-input:placeholder-shown {
-    border-bottom-color: var(--form-color);
-  }
