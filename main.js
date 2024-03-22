@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // VALIDATION CSS CHANGES
     const inputs = document.querySelectorAll("input");
+    grayOutConfirms()
 
     inputs.forEach(input => {
         input.addEventListener('focus', () => {
@@ -13,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         input.addEventListener('blur', () => {
+            grayOutConfirms()
+
             if(input.classList[0] !== "confirm") {
 
                 const message = input.validationMessage;
@@ -21,19 +24,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 const message = `${(input.type).charAt(0).toUpperCase() + (input.type).slice(1)}s don't match.`;
                 if (input.type === "email") {
                     const firstEmail = document.querySelector('input[type="email"]');
-                    input.value === firstEmail.value ? handleValidInput(input) : handleInvalidInput(input, message);
+                    (input.value === firstEmail.value && input.value != "") ? handleValidInput(input) : handleInvalidInput(input, message);
                 } else if (input.type === "password") {
                     const firstPassword = document.querySelector('input[type="password"]');
-                    input.value === firstPassword.value ? handleValidInput(input) : handleInvalidInput(input, message);
+                    (input.value === firstPassword.value  && input.value != "")  ? handleValidInput(input) : handleInvalidInput(input, message);
+
                 }
             }
         });
 
         input.addEventListener('input', () => {
+            grayOutConfirms()
+
             if(input.classList[0] !== "confirm") {
 
                 const message = input.validationMessage;
                 input.checkValidity() ? handleValidInput(input, message) : handleInvalidInput(input, message)
+
+
             } else {
                 const message = `${(input.type).charAt(0).toUpperCase() + (input.type).slice(1)}s don't match.`;
                 if (input.type === "email") {
@@ -41,9 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     input.value === firstEmail.value ? handleValidInput(input) : handleInvalidInput(input, message);
                 } else if (input.type === "password") {
                     const firstPassword = document.querySelector('input[type="password"]');
-                    input.value === firstPassword.value ? handleValidInput(input) : handleInvalidInput(input, message);
+                    input.value === firstPassword.value  ? handleValidInput(input) : handleInvalidInput(input, message);
                 }
             }
+
         });
 
     // BUTTON VALIDATION
@@ -80,11 +89,12 @@ function handleValidInput(input) {
 }
 
 function handleInvalidInput(input, message) {
-    console.log(input.validity);
     let inputString = input.value;
-    console.log(typeof inputString);
 
-    if (input.type === 'password') {
+    if (input.value == "") {
+        message = `You can't have an empty ${input.type != 'text' ? input.type : 'name'}.`
+    }
+    if (input.type === 'password' && !input.classList.contains('confirm')) {
         message = "";
         if (inputString.length < 6) {
             message += `Use at least 6 characters (currently ${inputString.length} ${inputString.length == 1 ? "character" : "characters"}).<br>`;
@@ -101,10 +111,6 @@ function handleInvalidInput(input, message) {
         if (inputString.length > 14) {
             message += `Use less than 20 characters (currently ${inputString.length} characters).`
         }
-        if (message.includes("password")) {
-            
-        }
-
     } else if (input.type === 'text') {
         if (input.validity.patternMismatch) {
             message = "Numbers are not allowed.<br>";
@@ -121,4 +127,47 @@ function handleInvalidInput(input, message) {
     console.log(message); // Set custom error message
     const errorMessageSpan = input.parentElement.nextElementSibling;
     errorMessageSpan.innerHTML = message;
+}
+
+function grayOutConfirms() {
+    const firstEmail = document.querySelector('input[type="email"]');
+    const confirmEmail = document.querySelector('input[type="email"].confirm');
+    const firstPassword = document.querySelector('input[type="password"]');
+    const confirmPassword = document.querySelector('input[type="password"].confirm');
+
+    const prevSvgEmail = confirmEmail.previousElementSibling;
+    const prevSvgPassword = confirmPassword.previousElementSibling;
+
+    if(firstEmail.value == "") {
+        confirmEmail.disabled = true;
+        confirmEmail.value = ""
+        prevSvgEmail.style.stroke = 'gray';
+
+        confirmEmail.classList.remove('valid');
+        confirmEmail.classList.remove('invalid');
+
+        const errorMessageSpan = confirmEmail.parentElement.nextElementSibling;
+        errorMessageSpan.innerHTML = "";
+    }
+    if(firstPassword.value == "") {
+        confirmPassword.disabled = true;
+        confirmPassword.value = ""
+        prevSvgPassword.style.stroke = 'gray';
+
+        confirmPassword.classList.remove('valid');
+        confirmPassword.classList.remove('invalid');
+
+        const errorMessageSpan = confirmPassword.parentElement.nextElementSibling;
+        errorMessageSpan.innerHTML = "";
+    }
+
+    if(firstEmail.value != "") {
+        confirmEmail.disabled = false;
+        prevSvgEmail.style.stroke == 'gray' ? prevSvgEmail.style.stroke = "" : ""
+    }
+    if(firstPassword.value != "") {
+        confirmPassword.disabled = false;
+        prevSvgPassword.style.stroke == 'gray' ? prevSvgPassword.style.stroke = "" : ""
+
+    }
 }
