@@ -70,7 +70,19 @@ document.addEventListener('DOMContentLoaded', () => {
     
         if(count === inputs.length) {
             form.submit();
-        }   
+        } else {
+            if(!input.classList.contains('valid')) {
+                const message = input.validationMessage;
+                handleInvalidInput(input, message);
+
+                input.parentElement.parentElement.style.animation = 'shake 1 0.5s'
+                setTimeout(() => {
+                    input.parentElement.parentElement.style.animation = ''
+                    ;
+                  }, "1050");
+                  
+            }
+        }
         });
     });
 });
@@ -93,6 +105,8 @@ function handleInvalidInput(input, message) {
 
     if (input.value == "") {
         message = `You can't have an empty ${input.type != 'text' ? input.type : 'name'}.`
+        console.log("working?111")
+
     }
     if (input.type === 'password' && !input.classList.contains('confirm')) {
         message = "";
@@ -124,7 +138,6 @@ function handleInvalidInput(input, message) {
     input.classList.remove('valid');
     input.classList.add('invalid');
 
-    console.log(message); // Set custom error message
     const errorMessageSpan = input.parentElement.nextElementSibling;
     errorMessageSpan.innerHTML = message;
 }
