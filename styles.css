@@ -38,6 +38,18 @@
 
 /* -----------------------------------------------------------------------------------*/
 
+
+/* COLOR VARIABLES */
+:root {
+    --form-color: #5222a0;
+    --focus-color: #fdcda7;
+    --correct-color: rgb(0, 255, 0);
+    --wrong-color: rgb(255, 2, 2);
+    --link-color: #00ccff;
+}
+/* ----------------*/
+
+
 /* BASIC STRUCTURE */
 body {
     display: flex;
@@ -54,8 +66,8 @@ body {
 }
 
 .left-area {
-    width: 35vw; /* Use viewport width instead of em */
-    height: 100vh; /* Use viewport height instead of rem */
+    width: 35vw;
+    height: 100vh; 
     background-image: url(./images/silas-van-overeem-7ga11BHwXHY-unsplash.jpg);
     background-size: cover;
 
@@ -68,11 +80,17 @@ body {
     background-color: #0000006b;
     width: 100%;
     text-align: center;
+
+    padding: 3px 0;
 }
 
-.left-area a {
+.colored-link {
     text-decoration: none;
-    color: rgb(0, 225, 255);
+    color: var(--link-color);
+}
+
+.colored-link:hover {
+    text-decoration: underline;
 }
 
 
@@ -101,6 +119,8 @@ body {
 .top h1 {
     font-size: 2.2em;
     text-align: center;
+    padding: 10px;
+
 }
 
 .top h1 span {
@@ -108,6 +128,66 @@ body {
     color: var(--focus-color);
 }
 
+/* GITHUB AND ODIN LINKS */
+
+.bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.bottom-link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 30%;
+    height: 100%;
+}
+
+.bottom-link > p {
+    height: 20px;
+    margin-bottom: -20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    align-self: center;
+}
+
+.footers-container {
+    border-radius: 10px;
+    background-color: #131313;
+    box-shadow:  5px 5px 0px var(--focus-color);
+
+
+    padding: 10px 5px;
+    width: 100%;
+    height: 100px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #fff;
+    font-weight: 900;
+    text-decoration: none;
+
+    transition: all 0.3s, box-shadow 1s;
+}
+.footers-container:hover {
+    transform: scale(1.1);
+    box-shadow: 5px 5px 0px var(--link-color);
+}
+
+.footers-container img {
+    height: 75%;
+    padding-right: 10px;
+}
+
+
+
+/* --------------------------*/
 
 /* FORM AREA */
 
@@ -154,14 +234,7 @@ form .line {
 }
 
 
-/* COLOR VARIABLES */
-:root {
-    --form-color: #5222a0;
-    --focus-color: #fdcda7;
-    --correct-color: rgb(0, 255, 0);
-    --wrong-color: rgb(255, 2, 2);
-}
-/* ----------------*/
+
 
 /* FORM INPUTS CSS */ 
 
@@ -276,3 +349,35 @@ button:hover {
 
 }
 
+
+
+/* AAAAAAAAAAAAAAAAAAAAAAAAA */
+
+@media (max-width: 1400px) {
+    .input-holder {
+        width: 50%;
+    }
+
+}
+
+@media (max-width: 958px) {
+    body {
+        font-size: 14px
+    };
+
+    .left-area {
+        display: none;
+    }
+    .right-area {
+        width: 100%;
+    }
+
+    .bottom-link {
+        width: 40%;
+    }
+
+    .top h1 {
+        font-size: 2em;
+    }
+
+}
