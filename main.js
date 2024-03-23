@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     input.parentElement.parentElement.style.animation = ''
                     ;
-                  }, "1050");
+                  }, "1000");
                   
             }
         }
